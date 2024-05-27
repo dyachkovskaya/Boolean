@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Bot Message</title>
+</head>
+<body>
+    <input type="text" id="messageInput" placeholder="Введите сообщение" />
+    <button id="sendMessageButton">Отправить сообщение</button>
+
+    <script>
+        document.getElementById('sendMessageButton').addEventListener('click', function() {
+            const message = document.getElementById('messageInput').value;
+            const url = "https://api.telegram.org/bot7091641888:AAFzD1Sh0RKP7ravyq-Fd6sLf45XwoZUqgs/sendMessage";
+            const data = {
+                chat_id: "-4201544286",
+                text: message
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
