@@ -27,15 +27,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.getElementById('sendMessageButton').addEventListener('click', function() {
-    // const selectCategotia = document.getElementById('selectCategoria').value;
-    // const selectTech = document.getElementById('selectTech').value;
-    const selectCategotia = document.querySelector('.selectButtom.selected').textContent.replace(/\s+/g, ' ').trim();
-    const selectTech = document.querySelector('.selectButtom2.selected').textContent.replace(/\s+/g, ' ').trim();
+document.getElementById('sendMessageButton').addEventListener('click', function () {
+    const selectCategotiaElement = document.querySelector('.selectButtom.selected');
+    const selectTechElement = document.querySelector('.selectButtom2.selected');
+    const fullnameElement = document.getElementById('fullnameInput');
+    const emailElement = document.getElementById('emailInput');
+    const messageElement = document.getElementById('messageInput');
 
-    const fullname = document.getElementById('fullnameInput').value;
-    const email = document.getElementById('emailInput').value;
-    const message = document.getElementById('messageInput').value;
+    if (!selectCategotiaElement || !selectTechElement || !fullnameElement || !emailElement || !messageElement) {
+        alert('Пожалуйста, заполните все поля.');
+        return;
+    }
+
+    const selectCategotia = selectCategotiaElement.textContent.replace(/\s+/g, ' ').trim();
+    const selectTech = selectTechElement.textContent.replace(/\s+/g, ' ').trim();
+    const fullname = fullnameElement.value;
+    const email = emailElement.value;
+    const message = messageElement.value;
+
+    if (!selectCategotia || !selectTech || !fullname || !email || !message) {
+        alert('Пожалуйста, заполните все поля.');
+        return;
+    }
+
     const url = "https://api.telegram.org/bot7091641888:AAFzD1Sh0RKP7ravyq-Fd6sLf45XwoZUqgs/sendMessage";
     const data = {
         chat_id: "-1002211912373",
@@ -49,23 +63,37 @@ document.getElementById('sendMessageButton').addEventListener('click', function(
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-})
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success', data);
+            // Если все поля заполнены, то отображается модального окна
+            popup.style.display = 'flex';
+            closebtnpopup.addEventListener('click', () => {
+                popup.style.display = 'none';
+            });
+        })
+        .catch((error) => {
+            console.error('Error: Перезагрузите сайт!', error);
+        });
+});
 
-document.getElementById('sendMessageButtonAsk').addEventListener('click', function() {
+document.getElementById('sendMessageButtonAsk').addEventListener('click', function () {
     const fullname = document.getElementById('fullnameInputAsk').value;
     const email = document.getElementById('emailInputAsk').value;
     const message = document.getElementById('messageInputAsk').value;
+    const popup = document.getElementById('popupwindow');
+    const closebtnpopup = document.getElementById('closebtnpopup');
+
+    // Проверка на пустые поля
+    if (!fullname || !email || !message) {
+        alert('Пожалуйста, заполните все поля.');
+        return;
+    }
+
     const url = "https://api.telegram.org/bot7091641888:AAFzD1Sh0RKP7ravyq-Fd6sLf45XwoZUqgs/sendMessage";
     const data = {
         chat_id: "-1002211912373",
-        text: `Ask us anything:\n\n Имя: ${fullname} \nПочта: ${email} \nВопрос: ${message}`
+        text: `Ask us anything:\n\nИмя: ${fullname} \nПочта: ${email} \nВопрос: ${message}`
     };
 
     fetch(url, {
@@ -75,15 +103,19 @@ document.getElementById('sendMessageButtonAsk').addEventListener('click', functi
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-})
-
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success', data);
+            // Если все поля заполнены, то отображается модального окна
+            popup.style.display = 'flex';
+            closebtnpopup.addEventListener('click', () => {
+                popup.style.display = 'none';
+            });
+        })
+        .catch((error) => {
+            console.error('Error: Перезагрузите сайт!', error);
+        });
+});
 
 document.getElementById('sendMessageButton').addEventListener('click', function() {
     // Очистка выбранных элементов в группе selectButtom
