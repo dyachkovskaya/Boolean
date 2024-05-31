@@ -33,6 +33,8 @@ document.getElementById('sendMessageButton').addEventListener('click', function 
     const fullnameElement = document.getElementById('fullnameInput');
     const emailElement = document.getElementById('emailInput');
     const messageElement = document.getElementById('messageInput');
+    const popup = document.getElementById('popupwindow');
+    const closebtnpopup = document.getElementById('closebtnpopup');
 
     if (!selectCategotiaElement || !selectTechElement || !fullnameElement || !emailElement || !messageElement) {
         alert('Пожалуйста, заполните все поля.');
